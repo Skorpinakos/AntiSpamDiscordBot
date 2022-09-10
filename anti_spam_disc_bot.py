@@ -9,7 +9,7 @@ intents.members = True
 client = discord.Client(intents=intents)
 
 guild = discord.Guild
-channel_id_dms = 867747379138265150 # channel to report
+channel_id_dms = 867747379138265150
 
 def clear_history():
     timer = open(path+"time.txt", "w")
@@ -20,8 +20,9 @@ def clear_history():
     f.close()
     return
     
-max_messages_in_clearing_time=9
-clearing_time=120
+max_messages_in_clearing_time=8
+max_diff_channels=4
+clearing_time=75
 timer = open(path+"time.txt", "w")
 timer.write(str(time.time()))
 timer.close()
@@ -73,16 +74,24 @@ async def on_message(message):
         
 
     f = open(path+"history.txt", "a")
-    f.write(str(msg)+"##+##"+str(message.author.id)+'\n')
+    f.write(str(msg)+"##+##"+str(message.author.id)+"##+##"+str(message.channel.id)+'\n')
     f.close()
     f = open(path+"history.txt")
     counter=0
+    diff_chans_list=[]
     data=str(f.read())
     for i in data.split('\n'):
         if '##+##' in i:
             if i.split('##+##')[1]==str(message.author.id):
                 counter=counter+1
+                diff_chans_list.append(i.split('##+##')[2])
+                  
+    diff_chans_list_clean= list(dict.fromkeys(diff_chans_list))
     print(counter)
+    if (len(diff_chans_list_clean))>=max_diff_channels:
+        counter=max_messages_in_clearing_time
+        print('too many channels')
+        
     if counter>=max_messages_in_clearing_time or (('http' in msg) and ('https://www.mediafire.com/' not in msg) and ('Admin' not in list_of_roles_names) ):
         if counter<max_messages_in_clearing_time:
             #await message.channel.send('{}, you have been soft-banned for spamming/breaking a rule. All further messages will be deleted . Contact an admin for help .'.format(str(message.author)) )
@@ -117,4 +126,4 @@ async def on_message(message):
         
 
 
-client.run('###insert_api_token_here')
+client.run('#insert api TOKEN here#')
