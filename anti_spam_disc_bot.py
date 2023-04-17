@@ -1,3 +1,4 @@
+token = ''
 import discord
 import time
 import os
