@@ -1,4 +1,6 @@
-token = ''
+with open('token.txt','r',encoding='utf-8') as token_file:
+    token=token_file.read()
+
 import discord
 import time
 import os
@@ -12,9 +14,10 @@ intents.members = True
 client = discord.Client(intents=intents)
 
 guild = discord.Guild
-channel_id_dms = 867747379138265150
-server_id = 506217627706720276
-reaction_message_id = 1090714673432776734
+channel_id_dms = 1025675146649948193
+server_id = 1025675146649948190
+reaction_message_id = 1097577934304321686
+report_channel=1081670042816614420
 
 
 def clear_history():
@@ -93,7 +96,7 @@ async def on_message(message):
     if msg.split(' ')[0] == '$open' and admin == True:
         closed_channels.remove(msg.split(' ')[1])
 
-    f = open(path + "history.txt", "a")
+    f = open(path + "history.txt", "a",encoding='utf-8')
     f.write(str(msg) + "##+##" + str(message.author.id) + "##+##" + str(message.channel.id) + '\n')
     f.close()
     f = open(path + "history.txt")
@@ -134,7 +137,7 @@ async def on_message(message):
             await message.channel.send(
                 '{}, you have been soft-banned for spamming/breaking a rule. All further messages will be deleted . Contact an admin for help .'.format(
                     str(message.author)))
-            await client.get_channel(867747379138265150).send(
+            await client.get_channel(report_channel).send(
                 '''softabanned user '{}' for spamming/breaking a rule\n user wrote :{}'''.format(
                     str(message.author) + ' ' + str(message.author.id), msg))
 
