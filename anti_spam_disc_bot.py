@@ -2,6 +2,7 @@ import discord
 import time
 import os
 import datetime
+token = 'ODYwMTU4NzY3OTIzNDYyMTU0.GQGofy.01__UyQxI3CRfVeUH8dYGdKygDKtmZfu8mST4U'
 
 path = os.path.abspath(os.getcwd()) + '/'
 # path='/home/pi/Projects/anti_spam/'
@@ -69,6 +70,9 @@ async def on_message(message):
 
     if 'spammer' in list_of_roles_names:
         await message.delete()
+        channel = await message.author.create_dm()
+        channel.send("You have been kicked from the ΗΜΤΥ server because you triggered the anti-spam bot, contact @ultrongr or any other admin for more info")
+        await message.author.kick()
         print("deleted spammer's message")
         return
 
