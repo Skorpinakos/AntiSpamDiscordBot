@@ -2,7 +2,7 @@ import discord
 import time
 import os
 import datetime
-token = 'ODYwMTU4NzY3OTIzNDYyMTU0.GQGofy.01__UyQxI3CRfVeUH8dYGdKygDKtmZfu8mST4U'
+token = 'TOKEN'
 
 path = os.path.abspath(os.getcwd()) + '/'
 # path='/home/pi/Projects/anti_spam/'
