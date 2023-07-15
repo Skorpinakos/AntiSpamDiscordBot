@@ -1,4 +1,4 @@
-# anti_spam-bot-disc
+# AntiSpamDiscordBot
 simple server management bot for discord
 
 
